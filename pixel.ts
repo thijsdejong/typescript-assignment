@@ -3,15 +3,17 @@ import { Point } from "./point";
 class Pixel {
   loc: Point;
   state: boolean;
+  distance: number;
 
   constructor(loc: Point, state: boolean = false) {
     this.loc = loc;
     this.state = state;
+    this.distance = 0;
   }
 
-  distanceTo(pixel: Pixel): number {
+  distanceTo(target: Pixel): number {
     return (
-      Math.abs(this.loc.x - pixel.loc.x) + Math.abs(this.loc.y - pixel.loc.y)
+      Math.abs(this.loc.x - target.loc.x) + Math.abs(this.loc.y - target.loc.y)
     );
   }
 
@@ -21,6 +23,10 @@ class Pixel {
     } else {
       process.stdout.write("0");
     }
+  }
+
+  printDistance(): void {
+    process.stdout.write(`${this.distance}`);
   }
 }
 
