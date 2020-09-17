@@ -47,21 +47,21 @@ class Bitmap {
         // for each pixel in the bitmap
         for (
           let target_y = 0;
-          target_y < Math.min(this.height, pixel.loc.y + pixel.distance);
+          target_y < Math.min(this.height, y + pixel.distance);
           target_y++
         ) {
           // if the search location is further away than what we already found as closest, stop looking
-          if (Math.abs(pixel.loc.y - target_y) >= pixel.distance) {
+          if (Math.abs(y - target_y) >= pixel.distance) {
             continue;
           }
 
           for (
-            let target_x = Math.max(0, pixel.loc.x - pixel.distance - 1);
-            target_x < Math.min(this.width, pixel.loc.x + pixel.distance);
+            let target_x = Math.max(0, x - pixel.distance - 1);
+            target_x < Math.min(this.width, x + pixel.distance);
             target_x++
           ) {
             // if the search location is further away than what we already found as closest, stop looking
-            if (Math.abs(pixel.loc.x - target_x) >= pixel.distance) {
+            if (Math.abs(x - target_x) >= pixel.distance) {
               continue;
             }
 
@@ -77,7 +77,7 @@ class Bitmap {
               continue;
             }
 
-            let distance = pixel.distanceTo(target);
+            let distance = Math.abs(x - target_x) + Math.abs(y - target_y);
 
             // if we found a closer white pixel
             if (distance < pixel.distance) {
