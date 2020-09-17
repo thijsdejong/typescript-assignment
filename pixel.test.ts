@@ -1,29 +1,63 @@
-import { Pixel } from "./pixel"
+import { Pixel } from "./pixel";
 
-describe('pixel tests', () => {
-    const write = process.stdout.write;
+describe("pixel tests", () => {
+  const write = process.stdout.write;
 
-    beforeAll(() => {
-        process.stdout.write = jest.fn();
+  beforeEach(() => {
+    process.stdout.write = jest.fn();
+  });
+
+  afterAll(() => {
+    process.stdout.write = write;
+  });
+
+  describe("state print tests", () => {
+    test("state off", () => {
+      let pixel = new Pixel(false);
+
+      pixel.printstate();
+
+      expect(process.stdout.write).toHaveBeenCalledWith("0");
     });
 
-    afterAll(() => {
-        process.stdout.write = write;
+    test("state on", () => {
+      let pixel = new Pixel(true);
+
+      pixel.printstate();
+
+      expect(process.stdout.write).toHaveBeenCalledWith("1");
+    });
+  });
+
+  describe("distance print tests", () => {
+    test("distance 0", () => {
+      let pixel = new Pixel(false);
+
+      pixel.distance = 0;
+
+      pixel.printDistance();
+
+      expect(process.stdout.write).toHaveBeenCalledWith("0");
     });
 
-    test('print pixel state off', () => {
-        let pixel = new Pixel(false);
+    test("distance 1", () => {
+      let pixel = new Pixel(true);
 
-        pixel.printstate();
+      pixel.distance = 1;
 
-        expect(process.stdout.write).toHaveBeenCalledWith("0");
+      pixel.printDistance();
+
+      expect(process.stdout.write).toHaveBeenCalledWith("1");
     });
 
-    test('print pixel state on', () => {
-        let pixel = new Pixel(true);
+    test("distance 181", () => {
+      let pixel = new Pixel(true);
 
-        pixel.printstate();
+      pixel.distance = 181;
 
-        expect(process.stdout.write).toHaveBeenCalledWith("1");
+      pixel.printDistance();
+
+      expect(process.stdout.write).toHaveBeenCalledWith("181");
     });
+  });
 });
