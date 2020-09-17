@@ -7,6 +7,11 @@
     "build": "tsc app.ts",
     "test": "jest --passWithNoTests"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
+  },
   "author": "thijsdejong",
   "license": "ISC",
   "dependencies": {
