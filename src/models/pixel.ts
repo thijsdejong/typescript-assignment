@@ -16,7 +16,7 @@ export class Pixel {
   }
 
   public setDistance(distance: number): void {
-    this.distance = distance
+    this.distance = distance;
   }
 
   public printstate(): void {

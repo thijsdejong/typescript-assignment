@@ -30,7 +30,10 @@ export class Bitmap {
 
     for (let y = 0; y < this.getHeight(); y++) {
       for (let x = 0; x < this.getWidth(); x++) {
-        output = output + `${this.getPixel(x, y).getDistance()}` + this.getSeperatorByX(x);
+        output =
+          output +
+          `${this.getPixel(x, y).getDistance()}` +
+          this.getSeperatorByX(x);
       }
     }
     return output;
