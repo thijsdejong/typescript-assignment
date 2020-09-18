@@ -33,7 +33,7 @@ describe("pixel tests", () => {
     test("distance 0", () => {
       let pixel = new Pixel(false);
 
-      pixel.distance = 0;
+      pixel.setDistance(0);
 
       pixel.printDistance();
 
@@ -43,7 +43,7 @@ describe("pixel tests", () => {
     test("distance 1", () => {
       let pixel = new Pixel(true);
 
-      pixel.distance = 1;
+      pixel.setDistance(1);
 
       pixel.printDistance();
 
@@ -53,7 +53,7 @@ describe("pixel tests", () => {
     test("distance 181", () => {
       let pixel = new Pixel(true);
 
-      pixel.distance = 181;
+      pixel.setDistance(181);
 
       pixel.printDistance();
 
