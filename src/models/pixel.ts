@@ -1,4 +1,4 @@
-class Pixel {
+export class Pixel {
   state: boolean;
   distance: number;
 
@@ -19,5 +19,3 @@ class Pixel {
     process.stdout.write(`${this.distance}`);
   }
 }
-
-export { Pixel };

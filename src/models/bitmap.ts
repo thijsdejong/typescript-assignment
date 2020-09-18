@@ -1,6 +1,6 @@
 import { Pixel } from "./pixel";
 
-class Bitmap {
+export class Bitmap {
   width: number;
   height: number;
   data: Pixel[][];
@@ -89,5 +89,3 @@ class Bitmap {
     }
   }
 }
-
-export { Bitmap };
