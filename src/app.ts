@@ -78,7 +78,6 @@ process.stdin.on("close", function () {
     numberOfBitmap < allBitmap.length;
     numberOfBitmap++
   ) {
-    // allBitmap[numberOfBitmap].print();
     process.stdout.write(`${allBitmap[numberOfBitmap]}`);
   }
 });
