@@ -1,3 +1,4 @@
+import { BitmapHelper } from "./helpers/bitmaphelper";
 import { Bitmap } from "./models/bitmap";
 import { Pixel } from "./models/pixel";
 
@@ -73,13 +74,9 @@ process.stdin.on("close", function () {
     process.exit(invalidInput());
   }
 
-  for (
-    let numberOfBitmap = 0;
-    numberOfBitmap < allBitmap.length;
-    numberOfBitmap++
-  ) {
-    process.stdout.write(`${allBitmap[numberOfBitmap]}`);
-  }
+  allBitmap.forEach((bitmap) => {
+    process.stdout.write(`${BitmapHelper.createDistanceBitmapFromPixelBitmap(bitmap)}`);
+  });
 });
 
 process.stdin.resume();

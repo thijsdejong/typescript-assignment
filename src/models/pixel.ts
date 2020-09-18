@@ -30,4 +30,12 @@ export class Pixel {
   public printDistance(): void {
     process.stdout.write(`${this.getDistance()}`);
   }
+
+  public isWhite(): boolean {
+    return this.getState();
+  }
+
+  public isBlack(): boolean {
+    return !this.getState();
+  }
 }
