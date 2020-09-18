@@ -21,21 +21,26 @@ export class Bitmap {
     return this.height;
   }
 
-  public print(): void {
-    for (let y = 0; y < this.getHeight(); y++) {
-      for (let x = 0; x < this.getWidth(); x++) {
-        this.data[y][x].printDistance();
-
-        this.printSeparator(x);
-      }
-    }
+  public getPixel(x: number, y: number): Pixel {
+    return this.data[y][x];
   }
 
-  private printSeparator(x: number): void {
+  public toString(): string {
+    let output: string = "";
+
+    for (let y = 0; y < this.getHeight(); y++) {
+      for (let x = 0; x < this.getWidth(); x++) {
+        output = output + `${this.getPixel(x, y).getDistance()}` + this.getSeperatorByX(x);
+      }
+    }
+    return output;
+  }
+
+  private getSeperatorByX(x: number): string {
     if (x == this.getWidth() - 1) {
-      process.stdout.write("\n");
+      return "\n";
     } else {
-      process.stdout.write(" ");
+      return " ";
     }
   }
 
@@ -43,7 +48,7 @@ export class Bitmap {
     // for each pixel in the bitmap calculate distance between all pixels
     for (let y = 0; y < this.getHeight(); y++) {
       for (let x = 0; x < this.getWidth(); x++) {
-        let pixel = this.data[y][x];
+        let pixel = this.getPixel(x, y);
 
         // if pixel is on, skip to next.
         if (pixel.getState() == true) {
@@ -79,7 +84,7 @@ export class Bitmap {
               continue;
             }
 
-            let target = this.data[target_y][target_x];
+            let target = this.getPixel(target_x, target_y);
 
             //if the target is not turned on, skip to next.
             if (target.getState() == false) {
