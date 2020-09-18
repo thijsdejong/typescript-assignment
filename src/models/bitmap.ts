@@ -3,7 +3,7 @@ import { Pixel } from "./pixel";
 export class Bitmap {
   private width: number;
   private height: number;
-  data: Pixel[][];
+  public data: Pixel[][];
 
   constructor(width: number, height: number, data: Pixel[][]) {
     this.width = width;
@@ -13,15 +13,15 @@ export class Bitmap {
     this.calculateDistance();
   }
 
-  getWidth(): number {
+  public getWidth(): number {
     return this.width;
   }
 
-  getHeight(): number {
+  public getHeight(): number {
     return this.height;
   }
 
-  print(): void {
+  public print(): void {
     for (let y = 0; y < this.getHeight(); y++) {
       for (let x = 0; x < this.getWidth(); x++) {
         this.data[y][x].printDistance();
@@ -46,31 +46,31 @@ export class Bitmap {
         let pixel = this.data[y][x];
 
         // if pixel is on, skip to next.
-        if (pixel.state == true) {
+        if (pixel.getState() == true) {
           continue;
         }
 
         // set distance to the maximum possible.
-        pixel.distance = this.getWidth() - 1 + this.getHeight() - 1;
+        pixel.setDistance(this.getWidth() - 1 + this.getHeight() - 1);
 
         // for each pixel in the bitmap
         for (
           let target_y = 0;
-          target_y < Math.min(this.getHeight(), y + pixel.distance);
+          target_y < Math.min(this.getHeight(), y + pixel.getDistance());
           target_y++
         ) {
           // if the search location is further away than what we already found as closest, stop looking
-          if (Math.abs(y - target_y) >= pixel.distance) {
+          if (Math.abs(y - target_y) >= pixel.getDistance()) {
             continue;
           }
 
           for (
-            let target_x = Math.max(0, x - pixel.distance - 1);
-            target_x < Math.min(this.getWidth(), x + pixel.distance);
+            let target_x = Math.max(0, x - pixel.getDistance() - 1);
+            target_x < Math.min(this.getWidth(), x + pixel.getDistance());
             target_x++
           ) {
             // if the search location is further away than what we already found as closest, stop looking
-            if (Math.abs(x - target_x) >= pixel.distance) {
+            if (Math.abs(x - target_x) >= pixel.getDistance()) {
               continue;
             }
 
@@ -82,15 +82,15 @@ export class Bitmap {
             let target = this.data[target_y][target_x];
 
             //if the target is not turned on, skip to next.
-            if (target.state == false) {
+            if (target.getState() == false) {
               continue;
             }
 
             let distance = Math.abs(x - target_x) + Math.abs(y - target_y);
 
             // if we found a closer white pixel
-            if (distance < pixel.distance) {
-              pixel.distance = distance;
+            if (distance < pixel.getDistance()) {
+              pixel.setDistance(distance);
             }
           }
         }
