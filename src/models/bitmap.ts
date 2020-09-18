@@ -3,7 +3,7 @@ import { Pixel } from "./pixel";
 export class Bitmap {
   private width: number;
   private height: number;
-  public data: Pixel[][];
+  private data: Pixel[][];
 
   constructor(width: number, height: number, data: Pixel[][]) {
     this.width = width;
