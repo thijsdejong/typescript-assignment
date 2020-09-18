@@ -5,12 +5,22 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
   },
   "author": "thijsdejong",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^14.6.3",
     "typescript": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.3.0"
   }
 }

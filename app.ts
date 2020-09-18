@@ -1,6 +1,5 @@
 import { Bitmap } from "./bitmap";
 import { Pixel } from "./pixel";
-import { Point } from "./point";
 
 function invalidInput(): number {
   console.log(
@@ -63,7 +62,7 @@ process.stdin.on("close", function () {
       }
 
       for (let x = 0; x < row.length; x++) {
-        data[y][x] = new Pixel(new Point(x, y), row[x] == "0" ? false : true);
+        data[y][x] = new Pixel(row[x] == "0" ? false : true);
       }
     }
 
