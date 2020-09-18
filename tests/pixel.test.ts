@@ -1,4 +1,4 @@
-import { Pixel } from "../src/pixel";
+import { Pixel } from "../src/models/pixel";
 
 describe("pixel tests", () => {
   const write = process.stdout.write;
