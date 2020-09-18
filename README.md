@@ -6,7 +6,7 @@ Typescript assignment made for [Dott](ridedott.com)
 1. `npm install`
 2. `npm run build`
 3. create a file `input.txt` as described in the assignment
-4. `cat input.txt | node app.js`
+4. `cat input.txt | node build/app.js`
 5. 🎉
 
 ## Additional information
