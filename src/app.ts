@@ -1,5 +1,5 @@
-import { Bitmap } from "./bitmap";
-import { Pixel } from "./pixel";
+import { Bitmap } from "./models/bitmap";
+import { Pixel } from "./models/pixel";
 
 function invalidInput(): number {
   console.log(
