@@ -1,9 +1,15 @@
+import { BitmapBuilder } from "../builders/bitmapbuilder";
 import { Bitmap } from "../models/bitmap"
 import { Pixel } from "../models/pixel"
 
 export class BitmapHelper {
     
     public static createDistanceBitmapFromPixelBitmap(bitmap: Bitmap): Bitmap {
+        let bitmapBuilder = new BitmapBuilder();
+
+        bitmapBuilder.setWidth(bitmap.getWidth());
+        bitmapBuilder.setHeight(bitmap.getHeight());
+
         let data: Pixel[][] = [];
 
         for (let y = 0; y < bitmap.getHeight(); y++) {
@@ -25,7 +31,9 @@ export class BitmapHelper {
             data.push(row);
         }
 
-        return new Bitmap(bitmap.getWidth(), bitmap.getHeight(), data);
+        bitmapBuilder.setData(data);
+
+        return new Bitmap(bitmapBuilder.build());
     }
 
     private static getDistanceToClosestWhitePixelByBitmapAndPixel(bitmap: Bitmap, pixelX: number, pixelY: number): number {

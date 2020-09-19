@@ -1,3 +1,4 @@
+import { BitmapBuilder } from "../builders/bitmapbuilder";
 import { Pixel } from "./pixel";
 
 export class Bitmap {
@@ -5,10 +6,10 @@ export class Bitmap {
   private height: number;
   private data: Pixel[][];
 
-  constructor(width: number, height: number, data: Pixel[][]) {
-    this.width = width;
-    this.height = height;
-    this.data = data;
+  constructor(bitmapBuilder: BitmapBuilder) {
+    this.width = bitmapBuilder.getWidth();
+    this.height = bitmapBuilder.getHeight();
+    this.data = bitmapBuilder.getData();
 
     this.calculateDistance();
   }

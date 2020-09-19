@@ -1,3 +1,5 @@
+import { exception } from "console";
+import { BitmapBuilder } from "./builders/bitmapbuilder";
 import { BitmapHelper } from "./helpers/bitmaphelper";
 import { Bitmap } from "./models/bitmap";
 import { Pixel } from "./models/pixel";
@@ -35,6 +37,8 @@ process.stdin.on("close", function () {
     numberOfTestCase < numberOfTestCases;
     numberOfTestCase++
   ) {
+    let bitmapBuilder = new BitmapBuilder();
+
     let dimension = allInput.shift()!;
 
     // check if we receive 2 valid numbers
@@ -50,6 +54,9 @@ process.stdin.on("close", function () {
 
     let height: number = Number(allDimension[0]);
     let width: number = Number(allDimension[1]);
+
+    bitmapBuilder.setHeight(height);
+    bitmapBuilder.setWidth(width);
 
     let data: Pixel[][] = new Array(height);
 
@@ -67,7 +74,9 @@ process.stdin.on("close", function () {
       }
     }
 
-    allBitmap.push(new Bitmap(width, height, data));
+    bitmapBuilder.setData(data);
+
+    allBitmap.push(new Bitmap(bitmapBuilder.build()));
   }
 
   if (!(allInput.length == 1 && allInput[0] == "")) {
