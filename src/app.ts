@@ -55,9 +55,6 @@ process.stdin.on("close", function () {
     let height: number = Number(allDimension[0]);
     let width: number = Number(allDimension[1]);
 
-    bitmapBuilder.setHeight(height);
-    bitmapBuilder.setWidth(width);
-
     let data: Pixel[][] = new Array(height);
 
     for (let y = 0; y < height; y++) {
@@ -74,9 +71,13 @@ process.stdin.on("close", function () {
       }
     }
 
-    bitmapBuilder.setData(data);
-
-    allBitmap.push(new Bitmap(bitmapBuilder.build()));
+    allBitmap.push(
+      bitmapBuilder
+        .setHeight(height)
+        .setWidth(width)
+        .setData(data)
+        .build()
+    );
   }
 
   if (!(allInput.length == 1 && allInput[0] == "")) {

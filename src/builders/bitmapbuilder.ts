@@ -1,3 +1,4 @@
+import { Bitmap } from "../models/bitmap";
 import { Pixel } from "../models/pixel";
 
 export class BitmapBuilder {
@@ -10,27 +11,33 @@ export class BitmapBuilder {
         return this._width;
     }
 
-    public setWidth(width: number): void {
+    public setWidth(width: number): BitmapBuilder {
         this._width = width;
+
+        return this;
     }
 
     public getHeight(): number {
         return this._height;
     }
 
-    public setHeight(height: number): void {
+    public setHeight(height: number): BitmapBuilder {
         this._height = height;
+
+        return this;
     }
 
     public getData(): Pixel[][] {
         return this._data;
     }
 
-    public setData(data: Pixel[][]): void {
+    public setData(data: Pixel[][]): BitmapBuilder {
         this._data = data;
+
+        return this;
     }
 
-    public build(): BitmapBuilder {
-        return this;
+    public build(): Bitmap {
+        return new Bitmap(this);
     }
 }

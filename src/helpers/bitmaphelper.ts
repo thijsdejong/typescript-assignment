@@ -7,9 +7,6 @@ export class BitmapHelper {
     public static createDistanceBitmapFromPixelBitmap(bitmap: Bitmap): Bitmap {
         let bitmapBuilder = new BitmapBuilder();
 
-        bitmapBuilder.setWidth(bitmap.getWidth());
-        bitmapBuilder.setHeight(bitmap.getHeight());
-
         let data: Pixel[][] = [];
 
         for (let y = 0; y < bitmap.getHeight(); y++) {
@@ -31,9 +28,11 @@ export class BitmapHelper {
             data.push(row);
         }
 
-        bitmapBuilder.setData(data);
-
-        return new Bitmap(bitmapBuilder.build());
+        return bitmapBuilder
+            .setWidth(bitmap.getWidth())
+            .setHeight(bitmap.getHeight())
+            .setData(data)
+            .build();
     }
 
     private static getDistanceToClosestWhitePixelByBitmapAndPixel(bitmap: Bitmap, pixelX: number, pixelY: number): number {
