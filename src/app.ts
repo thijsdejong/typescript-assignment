@@ -1,6 +1,6 @@
 import readline from 'readline';
 import { BitmapBuilder } from "./builders/bitmapbuilder";
-import { inputState } from "./enums/inputstateenum";
+import { inputState } from "./enums/inputstate";
 import { BitmapHelper } from './helpers/bitmaphelper';
 import { ParserHelper } from "./helpers/parserhelper";
 import { Bitmap } from "./models/bitmap";
