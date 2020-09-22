@@ -31,7 +31,7 @@ export class Bitmap {
       for (let x = 0; x < this.getWidth(); x++) {
         output =
           output +
-          `${this.getPixel(x, y).getDistance()}` +
+          `${this.getPixel(x, y)}` +
           this.getSeperatorByX(x);
       }
     }

@@ -68,7 +68,7 @@ export class ParserHelper {
         let array: Pixel[] = [];
 
         for (let i = 0; i < input.length; i++) {
-            array.push(new Pixel(Number(input[i]) === 1 ? true : false));
+            array.push(new Pixel(Number(input[i])));
         }
         
         return array;

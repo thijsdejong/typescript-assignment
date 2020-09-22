@@ -1,41 +1,19 @@
 export class Pixel {
-  private state: boolean;
-  private distance: number;
+  private value: number;
 
-  constructor(state: boolean = false) {
-    this.state = state;
-    this.distance = 0;
+  constructor(value: number) {
+    this.value = value;
   }
 
-  public getState(): boolean {
-    return this.state;
+  public getValue(): number {
+    return this.value;
   }
 
-  public getDistance(): number {
-    return this.distance;
+  public setValue(value: number): void {
+    this.value = value;
   }
 
-  public setDistance(distance: number): void {
-    this.distance = distance;
-  }
-
-  public printstate(): void {
-    if (this.getState() == true) {
-      process.stdout.write("1");
-    } else {
-      process.stdout.write("0");
-    }
-  }
-
-  public printDistance(): void {
-    process.stdout.write(`${this.getDistance()}`);
-  }
-
-  public isWhite(): boolean {
-    return this.getState();
-  }
-
-  public isBlack(): boolean {
-    return !this.getState();
+  public toString(): string {
+    return `${this.value}`;
   }
 }

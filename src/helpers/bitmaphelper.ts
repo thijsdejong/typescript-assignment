@@ -13,16 +13,15 @@ export class BitmapHelper {
             let row: Pixel[] = [];
 
             for (let x = 0; x < bitmap.getWidth(); x++) {
-                let pixel = bitmap.getPixel(x, y);
-                let newPixel = new Pixel(pixel.getState());
+                let newValue: number;
 
-                newPixel.setDistance(this.getDistanceToClosestWhitePixelByBitmapAndPixel(bitmap, x, y));
-
-                if (pixel.isWhite()) {
-                    newPixel.setDistance(0);
+                if (bitmap.getPixel(x, y).getValue() === 0) {
+                    newValue = this.getDistanceToClosestWhitePixelByBitmapAndPixel(bitmap, x, y);
+                } else {
+                    newValue = 0;
                 }
-
-                row.push(newPixel);                
+                
+                row.push(new Pixel(newValue));                
             }
 
             data.push(row);
@@ -42,7 +41,7 @@ export class BitmapHelper {
             for (let targetX = 0; targetX < bitmap.getWidth(); targetX++) {
                 let target = bitmap.getPixel(targetX, targetY);
                 
-                if (target.isBlack() || (pixelX === targetX && pixelY === targetY)) {
+                if (target.getValue() === 0 || (pixelX === targetX && pixelY === targetY)) {
                     continue;
                 }
 
