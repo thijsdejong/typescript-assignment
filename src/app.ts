@@ -1,7 +1,7 @@
-import readline from 'readline';
+import readline from "readline";
 import { BitmapBuilder } from "./builders/bitmapbuilder";
 import { inputState } from "./enums/inputstate";
-import { BitmapHelper } from './helpers/bitmaphelper';
+import { BitmapHelper } from "./helpers/bitmaphelper";
 import { ParserHelper } from "./helpers/parserhelper";
 import { Bitmap } from "./models/bitmap";
 import { Pixel } from "./models/pixel";
@@ -17,24 +17,24 @@ let allBitmap: Bitmap[] = [];
 let numberOfTestCases: number = 0;
 let bitmapBuilder: BitmapBuilder;
 
-rl.on('line', (input: string) => {
+rl.on("line", (input: string) => {
   try {
-    switch(state) {
+    switch (state) {
       case inputState.TESTCASES:
         numberOfTestCases = ParserHelper.getNumberOfTestcases(input);
 
         state = inputState.WIDTH_HEIGHT;
-      break;
-      
+        break;
+
       case inputState.WIDTH_HEIGHT:
         bitmapBuilder = new BitmapBuilder();
 
         bitmapBuilder
-        .setWidth(ParserHelper.getWidth(input))
-        .setHeight(ParserHelper.getHeight(input));
+          .setWidth(ParserHelper.getWidth(input))
+          .setHeight(ParserHelper.getHeight(input));
 
         state = inputState.PIXELS;
-      break;
+        break;
 
       case inputState.PIXELS:
         let data: Pixel[][] = bitmapBuilder.getData();
@@ -45,12 +45,14 @@ rl.on('line', (input: string) => {
 
         if (bitmapBuilder.isBuildable()) {
           allBitmap.push(
-            BitmapHelper.createDistanceBitmapFromPixelBitmap(bitmapBuilder.build())
+            BitmapHelper.createDistanceBitmapFromPixelBitmap(
+              bitmapBuilder.build()
+            )
           );
 
           state = inputState.WIDTH_HEIGHT;
         }
-      break;
+        break;
     }
   } catch (error) {
     process.stderr.write(`${error}`);
@@ -66,7 +68,7 @@ rl.on("close", () => {
 
     allBitmap.forEach((bitmap: Bitmap) => {
       process.stdout.write(`${bitmap}`);
-    })
+    });
   } catch (error) {
     process.stderr.write(`${error}`);
     process.exit(1);
