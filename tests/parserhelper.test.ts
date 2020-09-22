@@ -1,7 +1,4 @@
-import { BitmapBuilder } from "../src/builders/bitmapbuilder";
-import { BitmapHelper } from "../src/helpers/bitmaphelper";
 import { ParserHelper } from "../src/helpers/parserhelper";
-import { Bitmap } from "../src/models/bitmap";
 import { Pixel } from "../src/models/pixel";
 
 describe("parserHelper tests", () => {

@@ -24,14 +24,20 @@ describe("bitmap tests", () => {
         [new Pixel(0), new Pixel(1), new Pixel(1), new Pixel(0)],
       ])
       .build();
-    
+
     expect(bitmap.getWidth()).toBe(4);
     expect(bitmap.getHeight()).toBe(3);
-    
-    process.stdout.write(`${bitmap}`);
-    expect(process.stdout.write).toHaveBeenLastCalledWith("0 0 0 1\n0 0 1 1\n0 1 1 0\n")
 
-    process.stdout.write(`${BitmapHelper.createDistanceBitmapFromPixelBitmap(bitmap)}`);
-    expect(process.stdout.write).toHaveBeenLastCalledWith("3 2 1 0\n2 1 0 0\n1 0 0 1\n")
+    process.stdout.write(`${bitmap}`);
+    expect(process.stdout.write).toHaveBeenLastCalledWith(
+      "0 0 0 1\n0 0 1 1\n0 1 1 0\n"
+    );
+
+    process.stdout.write(
+      `${BitmapHelper.createDistanceBitmapFromPixelBitmap(bitmap)}`
+    );
+    expect(process.stdout.write).toHaveBeenLastCalledWith(
+      "3 2 1 0\n2 1 0 0\n1 0 0 1\n"
+    );
   });
 });
