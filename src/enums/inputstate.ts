@@ -1,5 +1,5 @@
 export enum inputState {
   TESTCASES,
-  WIDTH_HEIGHT,
+  HEIGHT_WIDTH,
   PIXELS,
 }

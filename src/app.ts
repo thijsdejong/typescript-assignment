@@ -23,10 +23,10 @@ rl.on("line", (input: string) => {
       case inputState.TESTCASES:
         numberOfTestCases = ParserHelper.getNumberOfTestcases(input);
 
-        state = inputState.WIDTH_HEIGHT;
+        state = inputState.HEIGHT_WIDTH;
         break;
 
-      case inputState.WIDTH_HEIGHT:
+      case inputState.HEIGHT_WIDTH:
         bitmapBuilder = new BitmapBuilder();
 
         bitmapBuilder
@@ -50,7 +50,7 @@ rl.on("line", (input: string) => {
             )
           );
 
-          state = inputState.WIDTH_HEIGHT;
+          state = inputState.HEIGHT_WIDTH;
         }
         break;
     }
