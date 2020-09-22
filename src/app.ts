@@ -1,6 +1,7 @@
 import readline from 'readline';
 import { BitmapBuilder } from "./builders/bitmapbuilder";
 import { inputState } from "./enums/inputstateenum";
+import { BitmapHelper } from './helpers/bitmaphelper';
 import { ParserHelper } from "./helpers/parserhelper";
 import { Bitmap } from "./models/bitmap";
 import { Pixel } from "./models/pixel";
@@ -43,7 +44,9 @@ rl.on('line', (input: string) => {
         bitmapBuilder.setData(data);
 
         if (bitmapBuilder.isBuildable()) {
-          allBitmap.push(bitmapBuilder.build());
+          allBitmap.push(
+            BitmapHelper.createDistanceBitmapFromPixelBitmap(bitmapBuilder.build())
+          );
 
           state = inputState.WIDTH_HEIGHT;
         }
