@@ -11,53 +11,17 @@ describe("pixel tests", () => {
     process.stdout.write = write;
   });
 
-  describe("state print tests", () => {
-    test("state off", () => {
-      let pixel = new Pixel(false);
+  test("value setting, getting and printing", () => {
+    let initialValue = 0;
+    let newValue = 42;
+    let pixel = new Pixel(initialValue);
 
-      pixel.printstate();
+    expect(pixel.getValue()).toBe(0);
+    pixel.setValue(newValue);
+    expect(pixel.getValue()).toBe(newValue);
 
-      expect(process.stdout.write).toHaveBeenCalledWith("0");
-    });
+    process.stdout.write(`${pixel}`);
 
-    test("state on", () => {
-      let pixel = new Pixel(true);
-
-      pixel.printstate();
-
-      expect(process.stdout.write).toHaveBeenCalledWith("1");
-    });
-  });
-
-  describe("distance print tests", () => {
-    test("distance 0", () => {
-      let pixel = new Pixel(false);
-
-      pixel.setDistance(0);
-
-      pixel.printDistance();
-
-      expect(process.stdout.write).toHaveBeenCalledWith("0");
-    });
-
-    test("distance 1", () => {
-      let pixel = new Pixel(true);
-
-      pixel.setDistance(1);
-
-      pixel.printDistance();
-
-      expect(process.stdout.write).toHaveBeenCalledWith("1");
-    });
-
-    test("distance 181", () => {
-      let pixel = new Pixel(true);
-
-      pixel.setDistance(181);
-
-      pixel.printDistance();
-
-      expect(process.stdout.write).toHaveBeenCalledWith("181");
-    });
+    expect(process.stdout.write).toHaveBeenCalledWith(`${newValue}`);
   });
 });
