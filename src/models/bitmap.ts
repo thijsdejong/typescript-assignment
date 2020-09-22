@@ -39,7 +39,7 @@ export class Bitmap {
   }
 
   private getSeperatorByX(x: number): string {
-    if (x == this.getWidth() - 1) {
+    if (x === this.getWidth() - 1) {
       return "\n";
     } else {
       return " ";

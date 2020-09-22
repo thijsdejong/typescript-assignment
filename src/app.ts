@@ -60,8 +60,8 @@ rl.on('line', (input: string) => {
 
 rl.on("close", () => {
   try {
-    if (allBitmap.length != numberOfTestCases) {
-      throw new Error("More testcases than specified");
+    if (numberOfTestCases === 0 || allBitmap.length !== numberOfTestCases) {
+      throw new Error("Invalid amount of testcases");
     }
 
     allBitmap.forEach((bitmap: Bitmap) => {
