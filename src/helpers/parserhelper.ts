@@ -2,7 +2,7 @@ import { Pixel } from "../models/pixel";
 
 export class ParserHelper {
   public static getNumberOfTestcases(input: string): number {
-    let matches = input.match("^(?<numberOfTestCases>\\d)$");
+    let matches = input.match("^(?<numberOfTestCases>\\d+)$");
 
     if (matches === null) {
       throw new Error("Unable to parse number of test cases.");
@@ -42,7 +42,7 @@ export class ParserHelper {
   }
 
   private static getHeightAndWidthMatches(input: string): RegExpMatchArray {
-    let matches = input.match("^(?<height>\\d) (?<width>\\d)$");
+    let matches = input.match("^(?<height>\\d+) (?<width>\\d+)$");
 
     if (matches === null) {
       throw new Error("Unable to parse height and width.");
