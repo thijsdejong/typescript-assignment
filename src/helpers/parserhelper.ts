@@ -1,7 +1,9 @@
+import { Pixel } from "../models/pixel";
+
 export class ParserHelper {
     
     public static getNumberOfTestcases(input: string): number {
-        let matches = input.match("^(?<numberOfTestCases\d)\n$");
+        let matches = input.match("^(?<numberOfTestCases>\\d)$");
         
         if (matches === null) {
             throw new Error("Unable to parse number of test cases.");
@@ -9,7 +11,7 @@ export class ParserHelper {
 
         let numberOfTestCases = Number(matches?.groups?.numberOfTestCases);
 
-        if (numberOfTestCases === NaN || numberOfTestCases < 1 && numberOfTestCases > 1000) {
+        if (numberOfTestCases === NaN || numberOfTestCases < 1 || numberOfTestCases > 1000) {
             throw new Error("Invalid number of test cases.");
         }
 
@@ -19,7 +21,7 @@ export class ParserHelper {
     public static getWidth(input: string): number {
         let width = Number(this.getHeightAndWidthMatches(input).groups?.width);
 
-        if (width === NaN || width < 1 && width > 182) {
+        if (width === NaN || width < 1 || width > 182) {
             throw new Error("Invalid width.");
         }
 
@@ -29,7 +31,7 @@ export class ParserHelper {
     public static getHeight(input: string): number {
         let height = Number(this.getHeightAndWidthMatches(input).groups?.height);
 
-        if (height === NaN || height < 1 && height > 182) {
+        if (height === NaN || height < 1 || height > 182) {
             throw new Error("Invalid height.");
         }
 
@@ -37,7 +39,7 @@ export class ParserHelper {
     }
 
     private static getHeightAndWidthMatches(input: string): RegExpMatchArray {
-        let matches = input.match("^(?<height>\d) (?<width>\d)\n$");
+        let matches = input.match("^(?<height>\\d) (?<width>\\d)$");
 
         if (matches === null) {
             throw new Error("Unable to parse height and width.");
@@ -46,8 +48,8 @@ export class ParserHelper {
         return matches;
     }
 
-    public static getPixelRow(input: string, width: number): string {
-        let matches = input.match("^[01]{" + width + "}\n$");
+    public static getPixelRow(input: string, width: number): Pixel[] {
+        let matches = input.match("^[01]{" + width + "}$");
         
         if (matches === null) {
             throw new Error("Unable to parse row of pixels.");
@@ -59,6 +61,16 @@ export class ParserHelper {
             throw new Error("Unable to parse row of pixels.");
         }
 
-        return pixelRow;
+        return this.createPixelArrayFromString(input);
+    }
+
+    private static createPixelArrayFromString(input: string): Pixel[] {
+        let array: Pixel[] = [];
+
+        for (let i = 0; i < input.length; i++) {
+            array.push(new Pixel(Number(input[i]) === 1 ? true : false));
+        }
+        
+        return array;
     }
 }

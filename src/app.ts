@@ -1,92 +1,71 @@
-import { exception } from "console";
+import readline from 'readline';
 import { BitmapBuilder } from "./builders/bitmapbuilder";
-import { BitmapHelper } from "./helpers/bitmaphelper";
+import { inputState } from "./enums/inputstateenum";
+import { ParserHelper } from "./helpers/parserhelper";
 import { Bitmap } from "./models/bitmap";
 import { Pixel } from "./models/pixel";
 
-function invalidInput(): number {
-  console.log(
-    "The input in formatted incorrectly or does not respect the set limits."
-  );
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false,
+});
 
-  return 1;
-}
-
+let state: inputState = inputState.TESTCASES;
 let allBitmap: Bitmap[] = [];
+let numberOfTestCases: number = 0;
+let bitmapBuilder: BitmapBuilder;
 
-let input: string = "";
-process.stdin.on("data", function (line: string) {
-  input += line;
+rl.on('line', (input: string) => {
+  try {
+    switch(state) {
+      case inputState.TESTCASES:
+        numberOfTestCases = ParserHelper.getNumberOfTestcases(input);
+
+        state = inputState.WIDTH_HEIGHT;
+      break;
+      
+      case inputState.WIDTH_HEIGHT:
+        bitmapBuilder = new BitmapBuilder();
+
+        bitmapBuilder
+        .setWidth(ParserHelper.getWidth(input))
+        .setHeight(ParserHelper.getHeight(input));
+
+        state = inputState.PIXELS;
+      break;
+
+      case inputState.PIXELS:
+        let data: Pixel[][] = bitmapBuilder.getData();
+
+        data.push(ParserHelper.getPixelRow(input, bitmapBuilder.getWidth()));
+
+        bitmapBuilder.setData(data);
+
+        if (bitmapBuilder.isBuildable()) {
+          allBitmap.push(bitmapBuilder.build());
+
+          state = inputState.WIDTH_HEIGHT;
+        }
+      break;
+    }
+  } catch (error) {
+    process.stderr.write(`${error}`);
+    process.exit(1);
+  }
 });
 
-process.stdin.on("close", function () {
-  // check if input format is valid. Does not check validity of row width or amount of rows with what is put in.
-  const matches = input.match(
-    "^([1-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|1000)\n(?:([1-9]|[1-8][0-9]|9[0-9]|1[0-7][0-9]|18[0-2]) ([1-9]|[1-8][0-9]|9[0-9]|1[0-7][0-9]|18[0-2])\n([01]{1,182}\n)+)+$"
-  );
-  if (matches == null) {
-    process.exit(invalidInput());
-  }
-
-  let allInput = input.split("\n");
-
-  let numberOfTestCases: number = Number(allInput.shift());
-
-  for (
-    let numberOfTestCase = 0;
-    numberOfTestCase < numberOfTestCases;
-    numberOfTestCase++
-  ) {
-    let bitmapBuilder = new BitmapBuilder();
-
-    let dimension = allInput.shift()!;
-
-    // check if we receive 2 valid numbers
-    if (
-      dimension.match(
-        "^([1-9]|[1-8][0-9]|9[0-9]|1[0-7][0-9]|18[0-2]) ([1-9]|[1-8][0-9]|9[0-9]|1[0-7][0-9]|18[0-2])$"
-      ) == null
-    ) {
-      process.exit(invalidInput());
+rl.on("close", () => {
+  try {
+    if (allBitmap.length != numberOfTestCases) {
+      throw new Error("More testcases than specified");
     }
 
-    let allDimension = dimension.split(" ");
-
-    let height: number = Number(allDimension[0]);
-    let width: number = Number(allDimension[1]);
-
-    let data: Pixel[][] = new Array(height);
-
-    for (let y = 0; y < height; y++) {
-      data[y] = new Array(width);
-
-      let row = allInput.shift()!;
-
-      if (row.match("^[01]{1,182}$") == null || row.length != width) {
-        process.exit(invalidInput());
-      }
-
-      for (let x = 0; x < row.length; x++) {
-        data[y][x] = new Pixel(row[x] == "0" ? false : true);
-      }
-    }
-
-    allBitmap.push(
-      bitmapBuilder
-        .setHeight(height)
-        .setWidth(width)
-        .setData(data)
-        .build()
-    );
+    allBitmap.forEach((bitmap: Bitmap) => {
+      process.stdout.write(`${bitmap}`);
+    })
+  } catch (error) {
+    process.stderr.write(`${error}`);
+    process.exit(1);
   }
-
-  if (!(allInput.length == 1 && allInput[0] == "")) {
-    process.exit(invalidInput());
-  }
-
-  allBitmap.forEach((bitmap) => {
-    process.stdout.write(`${BitmapHelper.createDistanceBitmapFromPixelBitmap(bitmap)}`);
-  });
 });
-
-process.stdin.resume();
